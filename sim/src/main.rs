@@ -28,19 +28,15 @@ impl MyGame {
 
         let cirlce=  Mesh::new_circle(
             _ctx, 
-            graphics::DrawMode, 
-            Point2{x:30,y:40}, 
-            12.0, 
+            graphics::DrawMode::Stroke(graphics::StrokeOptions::DEFAULT), 
+            Point2{x:100.0,y:200.0}, 
+            200.0, 
             1.0, 
             Color::BLUE
         );
 
-        // oof i do not know enough rust
-
-
-
         MyGame {
-          circle: cirlce,  
+          circle: cirlce.expect("could not make cirlce"),  
         }
     }
 }
@@ -54,6 +50,7 @@ impl EventHandler for MyGame {
     fn draw(&mut self, ctx: &mut Context) -> GameResult {
         let mut canvas = graphics::Canvas::from_frame(ctx, Color::WHITE);
         // Draw code here...
+        canvas.draw(&self.circle, graphics::DrawParam::default());
         canvas.finish(ctx)
     }
 }
